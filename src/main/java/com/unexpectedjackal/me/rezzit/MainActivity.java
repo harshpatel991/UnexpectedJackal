@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.unexpectedjackal.me.rezzit.R.layout.activity_main);
         addFragment();
+        System.out.println("Hello!");
     }
 
     void addFragment(){

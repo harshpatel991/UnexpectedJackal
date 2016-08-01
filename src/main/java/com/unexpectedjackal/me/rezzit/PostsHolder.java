@@ -17,22 +17,11 @@ public class PostsHolder {
                     + "?after=AFTER";
 
     String subreddit;
-    String url;
-    String after;
+    String after = "";
 
     public PostsHolder(String subreddit) {
         this.subreddit = subreddit;
-        this.after = "";
-        generateURL();
-    }
-
-    /**
-     * Generates the actual URL from the template based on the
-     * subreddit name and the 'after' property.
-     */
-    private void generateURL() {
-        url = URL_TEMPLATE.replace("SUBREDDIT_NAME", subreddit);
-        url = url.replace("AFTER", after);
+        generateURL("");
     }
 
     /**
@@ -42,6 +31,7 @@ public class PostsHolder {
      * @return
      */
     public List<Post> fetchPosts() {
+        String url = generateURL(after);
         String raw = RemoteData.readContents(url);
         List<Post> list = new ArrayList<>();
         try {
@@ -72,8 +62,13 @@ public class PostsHolder {
         return list;
     }
 
-    List<Post> fetchMorePosts() {
-        generateURL();
-        return fetchPosts();
+
+    /**
+     * Generates the actual URL from the template based on the
+     * subreddit name and the 'after' property.
+     */
+    private String generateURL(String after) {
+        return URL_TEMPLATE.replace("SUBREDDIT_NAME", subreddit)
+                .replace("AFTER", after);
     }
 }

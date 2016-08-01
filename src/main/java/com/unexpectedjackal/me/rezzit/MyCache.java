@@ -17,7 +17,7 @@ import java.util.Date;
 public class MyCache {
     private static final int CACHE_TIME = 1000 * 60 * 5;
     private static String CACHE_LOCATION =
-            "/Android/data/com.deadfire.me.rezzit/cache/";
+            "/Android/data/com.unexpectedjackal.me.rezzit/cache/";
 
     static {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
