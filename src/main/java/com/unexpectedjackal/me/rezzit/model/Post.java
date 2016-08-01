@@ -1,5 +1,7 @@
 package com.unexpectedjackal.me.rezzit.model;
 
+import android.graphics.Bitmap;
+
 public class Post {
 
     String subreddit;
@@ -11,6 +13,17 @@ public class Post {
     String url;
     String domain;
     String id;
+    Long created;
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public Bitmap getThumbnailBitmap() {
+        return thumbnailBitmap;
+    }
+
+    Bitmap thumbnailBitmap;
 
     public String getSubreddit() {
         return subreddit;
@@ -20,8 +33,8 @@ public class Post {
         return author;
     }
 
-    public int getPoints() {
-        return points;
+    public String getPoints() {
+        return Integer.toString(points);
     }
 
     public int getNumComments() {
@@ -46,10 +59,6 @@ public class Post {
 
     public String getTitle() {
         return title;
-    }
-
-    public String getScore() {
-        return Integer.toString(points);
     }
 
     public Post withSubreddit(String subreddit) {
@@ -94,6 +103,16 @@ public class Post {
 
     public Post withId(String id) {
         this.id = id;
+        return this;
+    }
+
+    public Post withThumbnailBitmap(Bitmap thumbnailBitmap) {
+        this.thumbnailBitmap = thumbnailBitmap;
+        return this;
+    }
+
+    public Post withCreated(Long created) {
+        this.created = created;
         return this;
     }
 }

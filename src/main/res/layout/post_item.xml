@@ -8,27 +8,36 @@
         android:id="@+id/post_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/post_score"
         android:layout_alignParentTop="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        />
-
-    <TextView
-        android:id="@+id/post_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/post_score"
-        android:layout_below="@+id/post_title"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
         />
 
     <TextView
         android:id="@+id/post_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/post_title"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorAccent"
         />
+
+    <TextView
+        android:id="@+id/post_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/post_score"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="12sp"
+        />
+
+    <ImageView
+        android:id="@+id/post_thumbnail"
+        android:layout_width="50dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
 
 </RelativeLayout>

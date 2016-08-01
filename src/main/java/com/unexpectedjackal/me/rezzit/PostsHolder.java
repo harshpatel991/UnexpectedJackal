@@ -1,5 +1,7 @@
 package com.unexpectedjackal.me.rezzit;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.unexpectedjackal.me.rezzit.model.Post;
@@ -7,6 +9,7 @@ import com.unexpectedjackal.me.rezzit.model.Post;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,9 +55,20 @@ public class PostsHolder {
                         .withSubreddit(cur.optString("subreddit"))
                         .withPermalink(cur.optString("permalink"))
                         .withDomain(cur.optString("domain"))
+                        .withCreated(cur.optLong("created"))
                         .withId(cur.optString("id"));
-                if (p.getTitle() != null)
+
+                String thumbnailUrl = cur.optString("thumbnail");
+
+                if(thumbnailUrl != null && !thumbnailUrl.equals("self")) {
+                    InputStream thumbnailStream = new java.net.URL(thumbnailUrl).openStream();
+                    Bitmap thumbnailBitmap = BitmapFactory.decodeStream(thumbnailStream);
+                    p.withThumbnailBitmap(thumbnailBitmap);
+                }
+
+                if (p.getTitle() != null) {
                     list.add(p);
+                }
             }
         } catch (Exception e) {
             Log.e("fetchPosts()", e.toString());

@@ -5,11 +5,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -95,11 +97,16 @@ public class PostsFragment extends Fragment {
                 TextView postTitle = (TextView) convertView.findViewById(R.id.post_title);
                 TextView postDetails = (TextView) convertView.findViewById(R.id.post_details);
                 TextView postScore = (TextView) convertView.findViewById(R.id.post_score);
+                ImageView imageView = (ImageView) convertView.findViewById(R.id.post_thumbnail);
 
                 Post post = posts.get(position);
+                String humanDiff = DateUtils.getRelativeTimeSpanString(post.getCreated()*1000, System.currentTimeMillis(), DateUtils.DAY_IN_MILLIS).toString();
+
                 postTitle.setText(post.getTitle());
                 postDetails.setText("by " + post.getAuthor() + " | " + post.getNumComments() + " comments");
-                postScore.setText(post.getScore());
+                postScore.setText(humanDiff + " " + post.getPoints() + " points");
+                imageView.setImageBitmap(post.getThumbnailBitmap());
+
                 return convertView;
             }
         };
