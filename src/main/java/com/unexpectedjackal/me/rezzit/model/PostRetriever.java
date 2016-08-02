@@ -1,10 +1,10 @@
-package com.unexpectedjackal.me.rezzit;
+package com.unexpectedjackal.me.rezzit.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.unexpectedjackal.me.rezzit.model.Post;
+import com.unexpectedjackal.me.rezzit.RemoteData;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,19 +13,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostsHolder {
-    private final String URL_TEMPLATE =
-            "http://www.reddit.com/r/SUBREDDIT_NAME/"
-                    + ".json"
-                    + "?after=AFTER";
-
-    String subreddit;
+public abstract class PostRetriever {
     String after = "";
-
-    public PostsHolder(String subreddit) {
-        this.subreddit = subreddit;
-        generateURL("");
-    }
 
     /**
      * Returns a list of Post objects after fetching data from
@@ -77,12 +66,5 @@ public class PostsHolder {
     }
 
 
-    /**
-     * Generates the actual URL from the template based on the
-     * subreddit name and the 'after' property.
-     */
-    private String generateURL(String after) {
-        return URL_TEMPLATE.replace("SUBREDDIT_NAME", subreddit)
-                .replace("AFTER", after);
-    }
+    abstract String generateURL(String after);
 }

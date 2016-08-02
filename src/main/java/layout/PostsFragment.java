@@ -1,6 +1,7 @@
 package layout;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +16,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.unexpectedjackal.me.rezzit.PostsHolder;
+import com.unexpectedjackal.me.rezzit.MainActivity;
+import com.unexpectedjackal.me.rezzit.model.PostRetriever;
 import com.unexpectedjackal.me.rezzit.R;
 import com.unexpectedjackal.me.rezzit.model.Post;
 
@@ -31,16 +33,16 @@ public class PostsFragment extends Fragment {
     Handler handler;
 
     List<Post> posts;
-    PostsHolder postsHolder;
+    PostRetriever postsHolder;
 
     public PostsFragment() {
         handler = new Handler();
         posts = new ArrayList<>();
     }
 
-    public static Fragment newInstance(String subreddit) {
+    public static Fragment newInstance(PostRetriever posts) {
         PostsFragment pf = new PostsFragment();
-        pf.postsHolder = new PostsHolder(subreddit);
+        pf.postsHolder = posts;
         return pf;
     }
 
@@ -99,13 +101,22 @@ public class PostsFragment extends Fragment {
                 TextView postScore = (TextView) convertView.findViewById(R.id.post_score);
                 ImageView imageView = (ImageView) convertView.findViewById(R.id.post_thumbnail);
 
-                Post post = posts.get(position);
+                final Post post = posts.get(position);
                 String humanDiff = DateUtils.getRelativeTimeSpanString(post.getCreated()*1000, System.currentTimeMillis(), DateUtils.DAY_IN_MILLIS).toString();
 
                 postTitle.setText(post.getTitle());
-                postDetails.setText("by " + post.getAuthor() + " | " + post.getNumComments() + " comments");
+                postDetails.setText("by " + post.getAuthor() + " in " + post.getSubreddit() + " | " + post.getNumComments() + " comments");
                 postScore.setText(humanDiff + " " + post.getPoints() + " points");
                 imageView.setImageBitmap(post.getThumbnailBitmap());
+
+                postTitle.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra("subreddit", post.getSubreddit());
+                        startActivity(intent);
+                    }
+                });
+
 
                 return convertView;
             }
