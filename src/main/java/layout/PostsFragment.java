@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.unexpectedjackal.me.rezzit.MainActivity;
+import com.unexpectedjackal.me.rezzit.PostActvity;
 import com.unexpectedjackal.me.rezzit.model.PostRetriever;
 import com.unexpectedjackal.me.rezzit.R;
 import com.unexpectedjackal.me.rezzit.model.Post;
@@ -111,8 +112,8 @@ public class PostsFragment extends Fragment {
 
                 postTitle.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        intent.putExtra("subreddit", post.getSubreddit());
+                        Intent intent = new Intent(getActivity(), PostActvity.class);
+                        intent.putExtra("post", post);
                         startActivity(intent);
                     }
                 });
